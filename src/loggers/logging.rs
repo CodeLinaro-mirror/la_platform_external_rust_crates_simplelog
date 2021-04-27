@@ -142,7 +142,7 @@ pub fn write_args<W>(record: &Record<'_>, write: &mut W) -> Result<(), Error>
 where
     W: Write + Sized,
 {
-    writeln!(write, "{}", record.args())?;
+    write!(write, "{}", record.args())?;
     Ok(())
 }
 
