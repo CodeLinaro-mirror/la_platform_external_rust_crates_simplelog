@@ -39,7 +39,7 @@ where
         write_location(record, write)?;
     }
 
-    write_args(record, write)
+    write_args(record, config, write)
 }
 
 #[inline(always)]
@@ -138,11 +138,22 @@ where
 }
 
 #[inline(always)]
-pub fn write_args<W>(record: &Record<'_>, write: &mut W) -> Result<(), Error>
+pub fn write_args<W>(record: &Record<'_>, config: &Config, write: &mut W) -> Result<(), Error>
 where
     W: Write + Sized,
 {
-    write!(write, "{}", record.args())?;
+
+    if !config.tag.is_none() {
+	    if config.new_line {
+	            writeln!(write, "{}", format!("{}: {}", config.tag.as_ref().unwrap_or(&String::from("<unknown>")), record.args()))?;
+	    } else {
+		    write!(write, "{}", format!("{}: {}", config.tag.as_ref().unwrap_or(&String::from("<unknown>")), record.args()))?;
+	    }
+    } else {
+	    if config.new_line {writeln!(write, "{}", record.args())?;}
+	    else { write!(write, "{}", record.args())?;}
+    }
+
     Ok(())
 }
 
