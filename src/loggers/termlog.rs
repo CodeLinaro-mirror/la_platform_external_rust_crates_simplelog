@@ -166,7 +166,7 @@ impl TermLogger {
             write_location(record, &mut *term_lock)?;
         }
 
-        write_args(record, &mut *term_lock)
+        write_args(record, &self.config, &mut *term_lock)
     }
 
     fn try_log(&self, record: &Record<'_>) -> Result<(), Error> {

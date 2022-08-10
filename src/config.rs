@@ -65,6 +65,8 @@ pub struct Config {
     pub(crate) time_local: bool,
     pub(crate) filter_allow: Cow<'static, [Cow<'static, str>]>,
     pub(crate) filter_ignore: Cow<'static, [Cow<'static, str>]>,
+    pub(crate) tag: Option<String>,
+    pub(crate) new_line: bool,
     #[cfg(feature = "termcolor")]
     pub(crate) level_color: [Option<Color>; 6],
 }
@@ -234,6 +236,16 @@ impl ConfigBuilder {
         self
     }
 
+    pub fn with_tag(&mut self, tag: &str) -> &mut ConfigBuilder {
+        self.0.tag = Some(String::from(tag));
+        self
+    }
+
+    pub fn without_new_line(&mut self) -> &mut ConfigBuilder {
+        self.0.new_line = false;
+        self
+    }
+
     /// Build new `Config`
     pub fn build(&mut self) -> Config {
         self.0.clone()
@@ -262,6 +274,8 @@ impl Default for Config {
             time_local: false,
             filter_allow: Cow::Borrowed(&[]),
             filter_ignore: Cow::Borrowed(&[]),
+            tag: None,
+            new_line: true,
 
             #[cfg(feature = "termcolor")]
             level_color: [
