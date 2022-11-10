@@ -236,11 +236,15 @@ impl ConfigBuilder {
         self
     }
 
+    /// Add tag 
+    /// If none are specified, there is no tag
     pub fn with_tag(&mut self, tag: &str) -> &mut ConfigBuilder {
         self.0.tag = Some(String::from(tag));
         self
     }
 
+    /// Add no new line option 
+    /// By default, there is new line by default
     pub fn without_new_line(&mut self) -> &mut ConfigBuilder {
         self.0.new_line = false;
         self
