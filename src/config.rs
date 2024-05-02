@@ -2,7 +2,7 @@
 use log::Level;
 use log::LevelFilter;
 
-pub use chrono::offset::{FixedOffset, Local, Offset, TimeZone, Utc};
+pub use chrono::offset::{FixedOffset, Offset, TimeZone, Utc};
 use std::borrow::Cow;
 #[cfg(feature = "termcolor")]
 use termcolor::Color;
