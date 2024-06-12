@@ -47,11 +47,7 @@ pub fn write_time<W>(write: &mut W, config: &Config) -> Result<(), Error>
 where
     W: Write + Sized,
 {
-    let cur_time = if config.time_local {
-        (chrono::Local::now() + config.time_offset).format(&*config.time_format)
-    } else {
-        (chrono::Utc::now() + config.time_offset).format(&*config.time_format)
-    };
+    let cur_time = (chrono::Utc::now() + config.time_offset).format(&*config.time_format);
 
     write!(write, "{} ", cur_time)?;
     Ok(())
